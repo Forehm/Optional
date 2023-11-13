@@ -34,21 +34,19 @@ public:
 
     bool HasValue() const;
 
-    // Îïåðàòîðû * è -> íå äîëæíû äåëàòü íèêàêèõ ïðîâåðîê íà ïóñòîòó Optional.
-    // Ýòè ïðîâåðêè îñòàþòñÿ íà ñîâåñòè ïðîãðàììèñòà
+    
     T& operator*();
     const T& operator*() const;
     T* operator->();
     const T* operator->() const;
-
-    // Ìåòîä Value() ãåíåðèðóåò èñêëþ÷åíèå BadOptionalAccess, åñëè Optional ïóñò
+
     T& Value();
     const T& Value() const;
 
     void Reset();
 
 private:
-    // alignas íóæåí äëÿ ïðàâèëüíîãî âûðàâíèâàíèÿ áëîêà ïàìÿòè
+   
     alignas(T) char data_[sizeof(T)];
     T* ptr_ = nullptr;
     bool is_initialized_ = false;
