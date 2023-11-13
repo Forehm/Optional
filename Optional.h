@@ -3,17 +3,21 @@
 #include <utility>
 
 
-class BadOptionalAccess : public std::exception {
+class BadOptionalAccess : public std::exception 
+{
 public:
     using exception::exception;
 
-    virtual const char* what() const noexcept override {
+    virtual const char* what() const noexcept override 
+{
         return "Bad optional access";
     }
 };
 
+
 template <typename T>
-class Optional {
+class Optional 
+{
 public:
     Optional() = default;
     Optional(const T& value);
