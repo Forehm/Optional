@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <utility>
 
+
 class BadOptionalAccess : public std::exception {
 public:
     using exception::exception;
@@ -29,21 +30,21 @@ public:
 
     bool HasValue() const;
 
-    // Операторы * и -> не должны делать никаких проверок на пустоту Optional.
-    // Эти проверки остаются на совести программиста
+    // ГЋГЇГҐГ°Г ГІГ®Г°Г» * ГЁ -> Г­ГҐ Г¤Г®Г«Г¦Г­Г» Г¤ГҐГ«Г ГІГј Г­ГЁГЄГ ГЄГЁГµ ГЇГ°Г®ГўГҐГ°Г®ГЄ Г­Г  ГЇГіГ±ГІГ®ГІГі Optional.
+    // ГќГІГЁ ГЇГ°Г®ГўГҐГ°ГЄГЁ Г®Г±ГІГ ГѕГІГ±Гї Г­Г  Г±Г®ГўГҐГ±ГІГЁ ГЇГ°Г®ГЈГ°Г Г¬Г¬ГЁГ±ГІГ 
     T& operator*();
     const T& operator*() const;
     T* operator->();
     const T* operator->() const;
 
-    // Метод Value() генерирует исключение BadOptionalAccess, если Optional пуст
+    // ГЊГҐГІГ®Г¤ Value() ГЈГҐГ­ГҐГ°ГЁГ°ГіГҐГІ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГҐ BadOptionalAccess, ГҐГ±Г«ГЁ Optional ГЇГіГ±ГІ
     T& Value();
     const T& Value() const;
 
     void Reset();
 
 private:
-    // alignas нужен для правильного выравнивания блока памяти
+    // alignas Г­ГіГ¦ГҐГ­ Г¤Г«Гї ГЇГ°Г ГўГЁГ«ГјГ­Г®ГЈГ® ГўГ»Г°Г ГўГ­ГЁГўГ Г­ГЁГї ГЎГ«Г®ГЄГ  ГЇГ Г¬ГїГІГЁ
     alignas(T) char data_[sizeof(T)];
     T* ptr_ = nullptr;
     bool is_initialized_ = false;
