@@ -57,19 +57,22 @@ private:
 
 template <typename T>
 Optional<T>::Optional(const T& value)
-    : is_initialized_(true) {
+    : is_initialized_(true) 
+{
     ptr_ = new(&data_[0]) T(value);
 }
 
 template <typename T>
 Optional<T>::Optional(T&& value)
-    : is_initialized_(true) {
+    : is_initialized_(true) 
+{
     ptr_ = new(&data_[0]) T(std::move(value));
 }
 
 template <typename T>
 Optional<T>::Optional(const Optional& other)
-    : is_initialized_(other.is_initialized_) {
+    : is_initialized_(other.is_initialized_) 
+{
     if (is_initialized_) {
         ptr_ = new(&data_[0]) T(other.Value());
     }
