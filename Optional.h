@@ -80,45 +80,57 @@ Optional<T>::Optional(const Optional& other)
 
 template <typename T>
 Optional<T>::Optional(Optional&& other)
-    : is_initialized_(std::move(other.is_initialized_)) {
-    if (is_initialized_) {
+    : is_initialized_(std::move(other.is_initialized_)) 
+{
+    if (is_initialized_) 
+    {
         ptr_ = new(&data_[0]) T(std::move(other.Value()));
     }
 }
 
 template <typename T>
-Optional<T>::~Optional() {
+Optional<T>::~Optional() 
+{
     Reset();
 }
 
 template <typename T>
-Optional<T>& Optional<T>::operator=(const T& value) {
-    if (!is_initialized_) {
+Optional<T>& Optional<T>::operator=(const T& value) 
+{
+    if (!is_initialized_) 
+    {
         ptr_ = new(&data_[0]) T(value);
         is_initialized_ = true;
     }
-    else {
+    else 
+    {
         *ptr_ = value;
     }
     return *this;
 }
 
 template <typename T>
-Optional<T>& Optional<T>::operator=(T&& rhs) {
-    if (!is_initialized_) {
+Optional<T>& Optional<T>::operator=(T&& rhs)
+{
+    if (!is_initialized_)
+    {
         ptr_ = new(&data_[0]) T(std::move(rhs));
         is_initialized_ = true;
     }
-    else {
+    else
+    {
         *ptr_ = std::move(rhs);
     }
     return *this;
 }
 
 template <typename T>
-Optional<T>& Optional<T>::operator=(const Optional& rhs) {
-    if (!is_initialized_) {
-        if (rhs.is_initialized_) {
+Optional<T>& Optional<T>::operator=(const Optional& rhs) 
+{
+    if (!is_initialized_) 
+    {
+        if (rhs.is_initialized_)
+        {
             ptr_ = new(&data_[0]) T(rhs.Value());
             is_initialized_ = rhs.is_initialized_;
         }
