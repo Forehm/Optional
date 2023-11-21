@@ -181,44 +181,54 @@ bool Optional<T>::HasValue() const
 }
 
 template <typename T>
-T& Optional<T>::operator*() {
+T& Optional<T>::operator*() 
+{
     return *ptr_;
 }
 
 template <typename T>
-const T& Optional<T>::operator*() const {
+const T& Optional<T>::operator*() const 
+{
     return *ptr_;
 }
 
 template <typename T>
-T* Optional<T>::operator->() {
+T* Optional<T>::operator->() 
+{
     return ptr_;
 }
 
 template <typename T>
-const T* Optional<T>::operator->() const {
+const T* Optional<T>::operator->() const 
+{
     return ptr_;
 }
 
 template <typename T>
-T& Optional<T>::Value() {
-    if (!is_initialized_) {
+T& Optional<T>::Value()
+{
+    if (!is_initialized_) 
+    {
         throw BadOptionalAccess();
     }
     return *ptr_;
 }
 
 template <typename T>
-const T& Optional<T>::Value() const {
-    if (!is_initialized_) {
+const T& Optional<T>::Value() const 
+
+    if (!is_initialized_)
+    {
         throw BadOptionalAccess();
     }
     return *ptr_;
 }
 
 template <typename T>
-void Optional<T>::Reset() {
-    if (is_initialized_) {
+void Optional<T>::Reset() 
+{
+    if (is_initialized_) 
+    {
         ptr_->~T();
         ptr_ = nullptr;
     }
@@ -226,8 +236,10 @@ void Optional<T>::Reset() {
 }
 
 template <typename T> template <typename... Vs>
-void Optional<T>::Emplace(Vs&&...vs) {
-    if (HasValue()) {
+void Optional<T>::Emplace(Vs&&...vs) 
+{
+    if (HasValue()) 
+    {
         Reset();
     }
     ptr_ = new(&data_[0]) T(std::forward<Vs>(vs)...);
