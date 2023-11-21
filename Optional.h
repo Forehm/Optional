@@ -3,20 +3,20 @@
 #include <utility>
 
 
-class BadOptionalAccess : public std::exception 
+class BadOptionalAccess : public std::exception
 {
 public:
     using exception::exception;
 
-    virtual const char* what() const noexcept override 
-{
+    virtual const char* what() const noexcept override
+    {
         return "Bad optional access";
     }
 };
 
 
 template <typename T>
-class Optional 
+class Optional
 {
 public:
     Optional() = default;
@@ -34,19 +34,22 @@ public:
 
     bool HasValue() const;
 
-    
+
     T& operator*();
     const T& operator*() const;
     T* operator->();
     const T* operator->() const;
-
+
     T& Value();
     const T& Value() const;
 
     void Reset();
+    
+    template <typename... Args>
+    void Emplace(Args&&... args);
 
 private:
-   
+
     alignas(T) char data_[sizeof(T)];
     T* ptr_ = nullptr;
     bool is_initialized_ = false;
@@ -195,4 +198,13 @@ void Optional<T>::Reset() {
         ptr_ = nullptr;
     }
     is_initialized_ = false;
+}
+
+template <typename T> template <typename... Vs>
+void Optional<T>::Emplace(Vs&&...vs) {
+    if (HasValue()) {
+        Reset();
+    }
+    ptr_ = new(&data_[0]) T(std::forward<Vs>(vs)...);
+    is_initialized_ = true;
 }
