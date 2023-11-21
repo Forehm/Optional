@@ -135,11 +135,14 @@ Optional<T>& Optional<T>::operator=(const Optional& rhs)
             is_initialized_ = rhs.is_initialized_;
         }
     }
-    else {
-        if (rhs.is_initialized_) {
+    else 
+    {
+        if (rhs.is_initialized_) 
+        {
             *ptr_ = rhs.Value();
         }
-        else {
+        else 
+        {
             Reset();
         }
     }
@@ -147,18 +150,24 @@ Optional<T>& Optional<T>::operator=(const Optional& rhs)
 }
 
 template <typename T>
-Optional<T>& Optional<T>::operator=(Optional&& rhs) {
-    if (!is_initialized_) {
-        if (rhs.is_initialized_) {
+Optional<T>& Optional<T>::operator=(Optional&& rhs)
+{
+    if (!is_initialized_) 
+    {
+        if (rhs.is_initialized_)
+        {
             ptr_ = new(&data_[0]) T(std::move(rhs.Value()));
             is_initialized_ = std::move(rhs.is_initialized_);
         }
     }
-    else {
-        if (rhs.is_initialized_) {
+    else 
+    {
+        if (rhs.is_initialized_) 
+        {
             *ptr_ = std::move(rhs.Value());
         }
-        else {
+        else 
+        {
             Reset();
         }
     }
@@ -166,7 +175,8 @@ Optional<T>& Optional<T>::operator=(Optional&& rhs) {
 }
 
 template <typename T>
-bool Optional<T>::HasValue() const {
+bool Optional<T>::HasValue() const 
+{
     return is_initialized_;
 }
 
